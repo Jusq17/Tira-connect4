@@ -1,0 +1,24 @@
+[[package]]
+name = "numpy"
+version = "1.24.1"
+description = "Fundamental package for array computing in Python"
+category = "main"
+optional = false
+python-versions = ">=3.8"
+
+[[package]]
+name = "pygame"
+version = "2.1.2"
+description = "Python Game Development"
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[metadata]
+lock-version = "1.1"
+python-versions = "^3.9"
+content-hash = "78380eb2c25f1b21a1ccacddf00c8d70ab8da2dccdc1a14dac9b3d5652ec4b0c"
+
+[metadata.files]
+numpy = []
+pygame = []
