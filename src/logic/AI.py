@@ -43,7 +43,7 @@ class AI():
 
             if piece == self.piece:
 
-                self.score += 2
+                self.score += 4
 
         for r in board:
 
@@ -77,7 +77,7 @@ class AI():
 
                 if enemyPieceCount == 2 and emptyCount == 2:
 
-                    self.score -= 2
+                    self.score -= 4
 
                 #if board[r,c] == self.piece and board[r,c+1] == self.piece and board[r,c+2] == self.piece and board[r,c+3] == self.piece:
 
@@ -129,7 +129,7 @@ class AI():
 
         if depth == 0:
 
-            score = self.evaluatePosition(board, piece)
+            score = self.evaluatePosition(board, -1)
 
             return score, bestPosition
 
@@ -172,7 +172,7 @@ class AI():
 
                 score = self.minimax(depth-1, newBoard, True, -piece)[0]
 
-                if score > maxScore:
+                if score < minScore:
 
                     minScore = score
                     bestPosition = i
