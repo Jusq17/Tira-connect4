@@ -52,7 +52,7 @@ class Game():
 
                     pass
 
-                bestColumn = self.AI.minimax(4, self.board, True, -self.piece)[1]
+                bestColumn = self.AI.minimax(3, self.board, True, -self.piece)[1]
                 self.logic.dropPiece(self.board, bestColumn, self.piece)
                 self.piece *= -1
 

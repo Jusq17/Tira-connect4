@@ -39,6 +39,9 @@ class AI():
 
         centerColumn = columns[3]
 
+        neg_diagonals = []
+        pos_diagonals = []
+
         for piece in centerColumn:
 
             if piece == self.piece:
@@ -85,7 +88,7 @@ class AI():
 
         for c in columns:
 
-            for r in range(4):
+            for r in range(3):
 
                 window = c[r:r+4]
 
@@ -116,6 +119,98 @@ class AI():
                 if enemyPieceCount == 2 and emptyCount == 2:
 
                     self.score -= 2
+
+            for offset in range(-2,4):
+
+                new_board = np.flipud(board)
+
+                pos_diagonal = np.diagonal(new_board, offset)
+
+                pos_diagonals.append(pos_diagonal)
+
+            for r in pos_diagonals:
+
+            #print(neg_diagonal)
+
+                for c in range(3):
+
+                    #neg_diagonal = np.diagonal(board)
+
+                    window = r[c:c+4]
+
+                    pieceCount = np.count_nonzero(window == self.piece)
+                    enemyPieceCount = np.count_nonzero(window == self.piece*-1)
+                    emptyCount = np.count_nonzero(window == 0)
+
+                    if pieceCount == 4:
+
+                        self.score += 10000
+
+                    if pieceCount == 3 and emptyCount == 1:
+
+                        self.score += 4
+
+                    if pieceCount == 2 and emptyCount == 2:
+
+                        self.score += 2
+
+                    if enemyPieceCount == 4:
+
+                        self.score -= 1000
+
+                    if enemyPieceCount == 3 and emptyCount == 1:
+
+                        self.score -= 100
+
+                    if enemyPieceCount == 2 and emptyCount == 2:
+
+                        self.score -= 2
+
+            for offset in range(-2,4):
+
+                neg_diagonal = np.diagonal(board, offset)
+
+                neg_diagonals.append(neg_diagonal)
+
+            for r in neg_diagonals:
+
+                #print(neg_diagonal)
+
+                for c in range(3):
+
+                    #neg_diagonal = np.diagonal(board)
+
+                    window = r[c:c+4]
+
+                    pieceCount = np.count_nonzero(window == self.piece)
+                    enemyPieceCount = np.count_nonzero(window == self.piece*-1)
+                    emptyCount = np.count_nonzero(window == 0)
+
+                    if pieceCount == 4:
+
+                        self.score += 10000
+
+                    if pieceCount == 3 and emptyCount == 1:
+
+                        self.score += 4
+
+                    if pieceCount == 2 and emptyCount == 2:
+
+                        self.score += 2
+
+                    if enemyPieceCount == 4:
+
+                        self.score -= 1000
+
+                    if enemyPieceCount == 3 and emptyCount == 1:
+
+                        self.score -= 100
+
+                    if enemyPieceCount == 2 and emptyCount == 2:
+
+                        self.score -= 2
+
+        #print(neg_diagonals)
 
         return self.score
 
