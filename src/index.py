@@ -12,12 +12,4 @@ def main():
 
 if __name__ == "__main__":
 
-    a = [0,0,0,0]
-
-    print(a[0:3])
-
     main()
-
-    a = [0,0,0,0]
-
-    print(a[0:3])

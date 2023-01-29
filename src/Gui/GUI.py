@@ -4,6 +4,22 @@ from logic import matrix_logic
 
 class Gui():
 
+    """
+        Luokka, joka vastaa Käyttöliittymän ja grafiikan piirtämisestä näytölle.
+
+        Attributes:
+
+            black: musta väri
+            gray: harmaa väri
+            blue: sininen väri
+            yellow: keltainen väri
+            rows: laudan rivien määrä
+            cols: laudan sarakkeiden määrä
+            block_size: laudan laatikoiden koko
+            circle_size: laudan ympyröiden koko
+
+    """
+
     def __init__(self):
 
         self.logic = matrix_logic.Logic()
@@ -20,11 +36,14 @@ class Gui():
         self.gray = (128, 128, 128)
         self.red = (255, 50, 0)
         self.yellow = (255, 255, 0)
+        self.blue = (0, 0, 255)
 
         self.block_size = 130
         self.circle_size = 50
 
     def draw_board_gui(self, screen, board, currentColumn, currentPiece):
+
+        pygame.draw.rect(screen, self.blue, (0, 110, 1000, 1000))
 
         if currentPiece == 1:
 
@@ -75,7 +94,7 @@ class Gui():
 
     def draw_main_gui(self, screen, board, currentColumn, currentPiece):
 
-        screen.fill(self.gray)
+        screen.fill(self.black)
 
         self.draw_board_gui(screen, board, currentColumn, currentPiece)
 

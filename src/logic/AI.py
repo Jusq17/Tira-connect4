@@ -12,41 +12,7 @@ class AI():
         self.score = 0
         self.piece = 1
 
-    def getValidColumns(self, board):
-
-        columns = np.transpose(board)
-
-        validLocations = []
-
-        for c in range(7):
-
-            if columns[c,0] != 0:
-
-                pass
-            else:
-                validLocations.append(c)
-
-        return validLocations
-
-
-    def evaluatePosition(self, board, piece):
-
-        self.piece = piece
-
-        self.score = 0
-
-        columns = np.transpose(board)
-
-        centerColumn = columns[3]
-
-        neg_diagonals = []
-        pos_diagonals = []
-
-        for piece in centerColumn:
-
-            if piece == self.piece:
-
-                self.score += 4
+    def evaluateRows(self, board, piece):
 
         for r in board:
 
@@ -76,15 +42,17 @@ class AI():
 
                 if enemyPieceCount == 3 and emptyCount == 1:
 
-                    self.score -= 100
+                    self.score -= 1000
 
                 if enemyPieceCount == 2 and emptyCount == 2:
 
                     self.score -= 4
 
-                #if board[r,c] == self.piece and board[r,c+1] == self.piece and board[r,c+2] == self.piece and board[r,c+3] == self.piece:
+        return self.score
 
-                    #self.score += 10000
+    def evaluateColumns(self, board, piece):
+
+        columns = np.transpose(board)
 
         for c in columns:
 
@@ -114,113 +82,162 @@ class AI():
 
                 if enemyPieceCount == 3 and emptyCount == 1:
 
-                    self.score -= 100
+                    self.score -= 1000
 
                 if enemyPieceCount == 2 and emptyCount == 2:
 
                     self.score -= 2
 
-            for offset in range(-2,4):
+        return self.score
 
-                new_board = np.flipud(board)
+    def evaluateDiagonals(self, board, piece):
 
-                pos_diagonal = np.diagonal(new_board, offset)
+        neg_diagonals = []
+        pos_diagonals = []
 
-                pos_diagonals.append(pos_diagonal)
+        for offset in range(-2,4):
 
-            for r in pos_diagonals:
+            new_board = np.flipud(board)
+
+            pos_diagonal = np.diagonal(new_board, offset)
+
+            pos_diagonals.append(pos_diagonal)
+
+        for r in pos_diagonals:
+
+        #print(neg_diagonal)
+
+            for c in range(3):
+
+                #neg_diagonal = np.diagonal(board)
+
+                window = r[c:c+4]
+
+                pieceCount = np.count_nonzero(window == self.piece)
+                enemyPieceCount = np.count_nonzero(window == self.piece*-1)
+                emptyCount = np.count_nonzero(window == 0)
+
+                if pieceCount == 4:
+
+                    self.score += 10000
+
+                if pieceCount == 3 and emptyCount == 1:
+
+                    self.score += 4
+
+                if pieceCount == 2 and emptyCount == 2:
+
+                    self.score += 2
+
+                if enemyPieceCount == 4:
+
+                    self.score -= 1000
+
+                if enemyPieceCount == 3 and emptyCount == 1:
+
+                    self.score -= 1000
+
+                if enemyPieceCount == 2 and emptyCount == 2:
+
+                    self.score -= 2
+
+        for offset in range(-2,4):
+
+            neg_diagonal = np.diagonal(board, offset)
+
+            neg_diagonals.append(neg_diagonal)
+
+        for r in neg_diagonals:
 
             #print(neg_diagonal)
 
-                for c in range(3):
+            for c in range(3):
 
-                    #neg_diagonal = np.diagonal(board)
+                #neg_diagonal = np.diagonal(board)
 
-                    window = r[c:c+4]
+                window = r[c:c+4]
 
-                    pieceCount = np.count_nonzero(window == self.piece)
-                    enemyPieceCount = np.count_nonzero(window == self.piece*-1)
-                    emptyCount = np.count_nonzero(window == 0)
+                pieceCount = np.count_nonzero(window == self.piece)
+                enemyPieceCount = np.count_nonzero(window == self.piece*-1)
+                emptyCount = np.count_nonzero(window == 0)
 
-                    if pieceCount == 4:
+                if pieceCount == 4:
 
-                        self.score += 10000
+                    self.score += 10000
 
-                    if pieceCount == 3 and emptyCount == 1:
+                if pieceCount == 3 and emptyCount == 1:
 
-                        self.score += 4
+                    self.score += 4
 
-                    if pieceCount == 2 and emptyCount == 2:
+                if pieceCount == 2 and emptyCount == 2:
 
-                        self.score += 2
+                    self.score += 2
 
-                    if enemyPieceCount == 4:
+                if enemyPieceCount == 4:
 
-                        self.score -= 1000
+                    self.score -= 1000
 
-                    if enemyPieceCount == 3 and emptyCount == 1:
+                if enemyPieceCount == 3 and emptyCount == 1:
 
-                        self.score -= 100
+                    self.score -= 1000
 
-                    if enemyPieceCount == 2 and emptyCount == 2:
+                if enemyPieceCount == 2 and emptyCount == 2:
 
-                        self.score -= 2
-
-            for offset in range(-2,4):
-
-                neg_diagonal = np.diagonal(board, offset)
-
-                neg_diagonals.append(neg_diagonal)
-
-            for r in neg_diagonals:
-
-                #print(neg_diagonal)
-
-                for c in range(3):
-
-                    #neg_diagonal = np.diagonal(board)
-
-                    window = r[c:c+4]
-
-                    pieceCount = np.count_nonzero(window == self.piece)
-                    enemyPieceCount = np.count_nonzero(window == self.piece*-1)
-                    emptyCount = np.count_nonzero(window == 0)
-
-                    if pieceCount == 4:
-
-                        self.score += 10000
-
-                    if pieceCount == 3 and emptyCount == 1:
-
-                        self.score += 4
-
-                    if pieceCount == 2 and emptyCount == 2:
-
-                        self.score += 2
-
-                    if enemyPieceCount == 4:
-
-                        self.score -= 1000
-
-                    if enemyPieceCount == 3 and emptyCount == 1:
-
-                        self.score -= 100
-
-                    if enemyPieceCount == 2 and emptyCount == 2:
-
-                        self.score -= 2
-
-        #print(neg_diagonals)
+                    self.score -= 2
 
         return self.score
 
+    def evaluatePosition(self, board, piece):
+
+        """
+            Metodi, joka arvostelee tietyn tilanteen pelilaudalla.
+            Käyttää muita evaluate-metodeja hyödykseen.
+
+            Args:
+
+                board: pelilauta
+                piece: palasta vastaava numero arvo
+        
+        """
+
+        self.piece = piece
+
+        self.score = 0
+
+        columns = np.transpose(board)
+
+        centerColumn = columns[3]
+
+        neg_diagonals = []
+        pos_diagonals = []
+
+        for piece in centerColumn:
+
+            if piece == self.piece:
+
+                self.score += 4
+
+        return self.score + self.evaluateRows(board, piece) + self.evaluateColumns(board, piece) + self.evaluateDiagonals(board, piece)
+
     def minimax(self, depth, board, maximizingPlayer, piece):
+
+        """
+            Metodi, joka toteuttaa minimax-algoritmin.
+
+            Args:
+
+                depth: syvyys, johon algoritmi menee
+                board: pelilauta
+                maximizingPlayer: totuusarvo, joka kertoo onko pelaaja maksivoiva
+                piece: palasta vastaava numero arvo
+
+        """
 
         bestPosition = 0
         maxScore = 0
         minScore = 0
 
-        validLocations = self.getValidColumns(board)
+        validLocations = self.logic.getValidColumns(board)
 
         if depth == 0:
 
@@ -237,10 +254,6 @@ class AI():
                 newBoard = np.copy(board)
 
                 newBoard = self.logic.dropPiece(newBoard, i, -piece)[0]
-
-                #score = -math.inf
-
-                #self.piece *= -1
 
                 score = self.minimax(depth-1, newBoard, False, -piece)[0]
 
@@ -261,10 +274,6 @@ class AI():
 
                 newBoard = self.logic.dropPiece(newBoard, i, -piece)[0]
 
-                #score = math.inf
-
-                #self.piece *= -1
-
                 score = self.minimax(depth-1, newBoard, True, -piece)[0]
 
                 if score < minScore:
@@ -273,11 +282,3 @@ class AI():
                     bestPosition = i
 
             return score, bestPosition
-
-        #if board[0,bestPosition] != 0:
-
-            #bestPosition += 1
-
-        print(self.getValidColumns(board))
-
-        self.logic.dropPiece(board, bestPosition, self.piece)

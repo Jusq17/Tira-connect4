@@ -8,6 +8,20 @@ from logic import AI
 
 class Game():
 
+    """
+        Luokka joka hoitaa pygame-eventtien tarkastuksen.
+        Mahdollistaa, että pelaaja voi pelata käyttäen nuolinäppäimiä.
+
+        Attributes:
+
+            logic: pelimatriisia käsittelevä luokka.
+            gui: Käyttöliittymää ja grafiikkaa käsittelevä luokka.
+            clock: pygame kello, jonka avulla asetetaan framerate.
+            size: pygame ikkunan koko
+            screen: pygame ikkuna, jolle grafiikat piirretään.
+
+    """
+
     def __init__(self):
 
         self.gui = GUI.Gui()
@@ -25,6 +39,15 @@ class Game():
         self.screen = pygame.display.set_mode(self.size)
 
     def game_handler(self, event):
+        """
+
+        Metodi, joka hoitaa pygame-eventtien tarkastamisen, kun pelaaja pelaa peliä.
+
+        Args:
+
+            event: pygame-event, joka tarkastetaan.
+
+        """
 
         if event.type == pygame.KEYDOWN:
 
@@ -55,6 +78,14 @@ class Game():
                 bestColumn = self.AI.minimax(3, self.board, True, -self.piece)[1]
                 self.logic.dropPiece(self.board, bestColumn, self.piece)
                 self.piece *= -1
+
+                if self.AI.evaluatePosition(self.board, self.piece) > 1000:
+
+                    print("voitto")
+
+                if self.AI.evaluatePosition(self.board, -self.piece) > 1000:
+
+                    print("voitto")
 
         #print(event)
 
