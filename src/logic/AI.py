@@ -3,6 +3,7 @@ import numpy as np
 import math
 from logic import matrix_logic
 
+
 class AI():
 
     def __init__(self):
@@ -11,6 +12,104 @@ class AI():
 
         self.score = 0
         self.piece = 1
+        self.game_over = False
+
+    def Game_over(self, board):
+
+        for r in board:
+
+            for c in range(4):
+
+                window = r[c:c+4]
+
+                pieceCount = np.count_nonzero(window == self.piece)
+                enemyPieceCount = np.count_nonzero(window == self.piece*-1)
+
+                if pieceCount == 4:
+
+                    return True
+
+                if enemyPieceCount == 4:
+
+                    return True
+
+        columns = np.transpose(board)
+
+        for c in columns:
+
+            for r in range(3):
+
+                window = c[r:r+4]
+
+                pieceCount = np.count_nonzero(window == self.piece)
+                enemyPieceCount = np.count_nonzero(window == self.piece*-1)
+
+                if pieceCount == 4:
+
+                    return True
+
+                if enemyPieceCount == 4:
+
+                    return True
+
+        neg_diagonals = []
+        pos_diagonals = []
+
+        for offset in range(-2, 4):
+
+            new_board = np.flipud(board)
+
+            pos_diagonal = np.diagonal(new_board, offset)
+
+            pos_diagonals.append(pos_diagonal)
+
+        for r in pos_diagonals:
+
+            # print(neg_diagonal)
+
+            for c in range(3):
+
+                # neg_diagonal = np.diagonal(board)
+
+                window = r[c:c+4]
+
+                pieceCount = np.count_nonzero(window == self.piece)
+                enemyPieceCount = np.count_nonzero(window == self.piece*-1)
+
+                if pieceCount == 4:
+
+                    return True
+
+                if enemyPieceCount == 4:
+
+                    return True
+
+        for offset in range(-2, 4):
+
+            neg_diagonal = np.diagonal(board, offset)
+
+            neg_diagonals.append(neg_diagonal)
+
+        for r in neg_diagonals:
+
+            # print(neg_diagonal)
+
+            for c in range(3):
+
+                # neg_diagonal = np.diagonal(board)
+
+                window = r[c:c+4]
+
+                pieceCount = np.count_nonzero(window == self.piece)
+                enemyPieceCount = np.count_nonzero(window == self.piece*-1)
+
+                if pieceCount == 4:
+
+                    return True
+
+                if enemyPieceCount == 4:
+
+                    return True
 
     def evaluateRows(self, board, piece):
 
@@ -38,11 +137,11 @@ class AI():
 
                 if enemyPieceCount == 4:
 
-                    self.score -= 1000
+                    self.score -= 10000
 
                 if enemyPieceCount == 3 and emptyCount == 1:
 
-                    self.score -= 1000
+                    self.score -= 10000
 
                 if enemyPieceCount == 2 and emptyCount == 2:
 
@@ -78,11 +177,11 @@ class AI():
 
                 if enemyPieceCount == 4:
 
-                    self.score -= 1000
+                    self.score -= 10000
 
                 if enemyPieceCount == 3 and emptyCount == 1:
 
-                    self.score -= 1000
+                    self.score -= 10000
 
                 if enemyPieceCount == 2 and emptyCount == 2:
 
@@ -95,7 +194,7 @@ class AI():
         neg_diagonals = []
         pos_diagonals = []
 
-        for offset in range(-2,4):
+        for offset in range(-2, 4):
 
             new_board = np.flipud(board)
 
@@ -105,11 +204,11 @@ class AI():
 
         for r in pos_diagonals:
 
-        #print(neg_diagonal)
+            # print(neg_diagonal)
 
             for c in range(3):
 
-                #neg_diagonal = np.diagonal(board)
+                # neg_diagonal = np.diagonal(board)
 
                 window = r[c:c+4]
 
@@ -131,17 +230,17 @@ class AI():
 
                 if enemyPieceCount == 4:
 
-                    self.score -= 1000
+                    self.score -= 10000
 
                 if enemyPieceCount == 3 and emptyCount == 1:
 
-                    self.score -= 1000
+                    self.score -= 10000
 
                 if enemyPieceCount == 2 and emptyCount == 2:
 
                     self.score -= 2
 
-        for offset in range(-2,4):
+        for offset in range(-2, 4):
 
             neg_diagonal = np.diagonal(board, offset)
 
@@ -149,11 +248,11 @@ class AI():
 
         for r in neg_diagonals:
 
-            #print(neg_diagonal)
+            # print(neg_diagonal)
 
             for c in range(3):
 
-                #neg_diagonal = np.diagonal(board)
+                # neg_diagonal = np.diagonal(board)
 
                 window = r[c:c+4]
 
@@ -163,7 +262,7 @@ class AI():
 
                 if pieceCount == 4:
 
-                    self.score += 10000
+                    self.score += math.inf
 
                 if pieceCount == 3 and emptyCount == 1:
 
@@ -179,7 +278,7 @@ class AI():
 
                 if enemyPieceCount == 3 and emptyCount == 1:
 
-                    self.score -= 1000
+                    self.score -= 10000
 
                 if enemyPieceCount == 2 and emptyCount == 2:
 
@@ -188,7 +287,6 @@ class AI():
         return self.score
 
     def evaluatePosition(self, board, piece):
-
         """
             Metodi, joka arvostelee tietyn tilanteen pelilaudalla.
             Käyttää muita evaluate-metodeja hyödykseen.
@@ -197,7 +295,7 @@ class AI():
 
                 board: pelilauta
                 piece: palasta vastaava numero arvo
-        
+
         """
 
         self.piece = piece
@@ -219,8 +317,7 @@ class AI():
 
         return self.score + self.evaluateRows(board, piece) + self.evaluateColumns(board, piece) + self.evaluateDiagonals(board, piece)
 
-    def minimax(self, depth, board, maximizingPlayer, piece):
-
+    def minimax(self, depth, board, maximizingPlayer, piece, alpha, beta):
         """
             Metodi, joka toteuttaa minimax-algoritmin.
 
@@ -234,12 +331,17 @@ class AI():
         """
 
         bestPosition = 0
-        maxScore = 0
-        minScore = 0
+        # maxScore = 0
+        # minScore = 0
+        value = 0
+
+        self.game_over = False
 
         validLocations = self.logic.getValidColumns(board)
 
-        if depth == 0:
+        self.Game_over(board)
+
+        if depth == 0 or self.Game_over(board) == True:
 
             score = self.evaluatePosition(board, -1)
 
@@ -247,7 +349,7 @@ class AI():
 
         if maximizingPlayer == True:
 
-            score = -math.inf
+            maxScore = -math.inf
 
             for i in validLocations:
 
@@ -255,18 +357,36 @@ class AI():
 
                 newBoard = self.logic.dropPiece(newBoard, i, -piece)[0]
 
-                score = self.minimax(depth-1, newBoard, False, -piece)[0]
+                score = self.minimax(
+                    depth-1, newBoard, False, -piece, alpha, beta)[0]
+
+                # if score >= math.inf:
+
+                # return score, bestPosition
 
                 if score > maxScore:
 
                     maxScore = score
                     bestPosition = i
 
-            return score, bestPosition
+                alpha = max(alpha, score)
+
+                if alpha >= beta:
+
+                    break
+                    pass
+
+                # if score <= -1000:
+
+                    # break
+
+            # print(maxScore, bestPosition, depth)
+
+            return maxScore, bestPosition
 
         else:
 
-            score = math.inf
+            minScore = math.inf
 
             for i in validLocations:
 
@@ -274,11 +394,27 @@ class AI():
 
                 newBoard = self.logic.dropPiece(newBoard, i, -piece)[0]
 
-                score = self.minimax(depth-1, newBoard, True, -piece)[0]
+                score = self.minimax(
+                    depth-1, newBoard, True, -piece, alpha, beta)[0]
 
                 if score < minScore:
 
                     minScore = score
                     bestPosition = i
 
-            return score, bestPosition
+                beta = min(beta, score)
+
+                if alpha >= beta:
+
+                    break
+                    pass
+
+                # if score <= -10000:
+
+                    # return score, bestPosition
+
+                # if score <= -1000:
+
+                    # return score, bestPosition
+
+            return minScore, bestPosition

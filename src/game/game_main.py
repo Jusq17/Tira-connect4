@@ -1,10 +1,13 @@
 
 import sys
+import math
 import pygame
+import time
 import numpy as np
 from Gui import GUI
 from logic import matrix_logic
 from logic import AI
+
 
 class Game():
 
@@ -70,32 +73,46 @@ class Game():
             if event.key == pygame.K_RETURN:
 
                 if self.logic.dropPiece(self.board, self.currentColumn, self.piece)[1] == True:
-                    
+
                     self.piece *= -1
+                    self.gui.draw_main_gui(
+                        self.screen, self.board, self.currentColumn, self.piece)
 
                     pass
 
-                bestColumn = self.AI.minimax(3, self.board, True, -self.piece)[1]
+            if self.piece == -1:
+
+                bestColumn = self.AI.minimax(
+                    5, self.board, True, -self.piece, -math.inf, math.inf)[1]
                 self.logic.dropPiece(self.board, bestColumn, self.piece)
                 self.piece *= -1
 
-                if self.AI.evaluatePosition(self.board, self.piece) > 1000:
+            if self.AI.evaluatePosition(self.board, self.piece) > 1000:
 
-                    print("voitto")
+                print("voitto")
 
-                if self.AI.evaluatePosition(self.board, -self.piece) > 1000:
+                time.sleep(2)
 
-                    print("voitto")
+                self.board = self.logic.clearBoard(self.board)
 
-        #print(event)
+            if self.AI.evaluatePosition(self.board, -self.piece) > 1000:
 
-        self.gui.draw_main_gui(self.screen, self.board, self.currentColumn, self.piece)
+                print("voitto")
 
-        #if self.piece == -1:
+                time.sleep(2)
 
-        self.gui.draw_main_gui(self.screen, self.board, self.currentColumn, self.piece)
+                self.board = self.logic.clearBoard(self.board)
 
-    
+        # print(event)
+
+        self.gui.draw_main_gui(self.screen, self.board,
+                               self.currentColumn, self.piece)
+
+        # if self.piece == -1:
+
+        self.gui.draw_main_gui(self.screen, self.board,
+                               self.currentColumn, self.piece)
+
     def event_handler(self):
         """
             Metodi, joka hoitaa pygame-eventtien tarkastamisen.

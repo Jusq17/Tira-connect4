@@ -2,6 +2,7 @@
 import numpy as np
 import pygame
 
+
 class Logic():
 
     """
@@ -23,7 +24,6 @@ class Logic():
         self.board = np.zeros((self.rows, self.columns), dtype=int)
 
     def getValidColumns(self, board):
-
         """
             Metodi, joka etsii vapaat sarakkeet, joihin voidaan pelata palanen.
 
@@ -39,7 +39,7 @@ class Logic():
 
         for c in range(7):
 
-            if columns[c,0] != 0:
+            if columns[c, 0] != 0:
 
                 pass
             else:
@@ -48,7 +48,6 @@ class Logic():
         return validLocations
 
     def dropPiece(self, board, column, piece):
-
         """
             Metodi, joka laittaa palasen sarakkeeseen.
 
@@ -69,14 +68,13 @@ class Logic():
 
         if piece != 1:
 
-            if board[0,column]:
-                    
-                self.dropPiece(board,column+1,piece)
+            if board[0, column]:
+
+                self.dropPiece(board, column+1, piece)
 
         return board, False
 
     def clearBoard(self, board):
-
         """
             Metodi, joka tyhjentää pelilaudan ja alustaa sen.
 

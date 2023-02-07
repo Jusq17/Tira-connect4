@@ -2,6 +2,7 @@
 import pygame
 from logic import matrix_logic
 
+
 class Gui():
 
     """
@@ -30,7 +31,7 @@ class Gui():
 
         pygame.init()
 
-        #self.size = self.width, self.height = 800, 800
+        # self.size = self.width, self.height = 800, 800
 
         self.black = (0, 0, 0)
         self.gray = (128, 128, 128)
@@ -53,7 +54,8 @@ class Gui():
 
             color = self.yellow
 
-        pygame.draw.circle(screen, color, (self.block_size * currentColumn + self.circle_size + 5, 50), self.circle_size)
+        pygame.draw.circle(screen, color, (self.block_size *
+                           currentColumn + self.circle_size + 5, 50), self.circle_size)
 
         for row in range(self.rows):
 
@@ -66,35 +68,20 @@ class Gui():
 
                 pos = (x + self.circle_size + 5, y + self.circle_size + 5)
 
-                piece = board[row,col]
-
-                #print(board)
-
-                #print(col)
-
-                #print(self.board[0,0])
-
-                #print(piece)
+                piece = board[row, col]
 
                 if piece == 1:
 
                     color = self.red
 
-                    #pygame.draw.circle(screen, color, (x + self.circle_size + 5), self.circle_size)
-
                 elif piece == -1:
 
                     color = self.yellow
 
-                #pygame.draw.rect(screen, self.gray,
-                                     #(x, y, self.block_size+40, self.block_size+40))
-                
                 pygame.draw.circle(screen, color, pos, self.circle_size)
-
 
     def draw_main_gui(self, screen, board, currentColumn, currentPiece):
 
         screen.fill(self.black)
 
         self.draw_board_gui(screen, board, currentColumn, currentPiece)
-

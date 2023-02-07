@@ -8,8 +8,13 @@ authors = ["Juska <juseljus@gmail.com>"]
 python = "^3.9"
 numpy = "^1.24.1"
 pygame = "^2.1.2"
+invoke = "^2.0.0"
+pylint = "^2.16.1"
+coverage = "^7.1.0"
+autopep8 = "^2.0.1"
 
 [tool.poetry.dev-dependencies]
+invoke = "^2.0.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
