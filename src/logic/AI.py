@@ -16,6 +16,18 @@ class AI():
 
     def Game_over(self, board):
 
+        zeroCount = 0
+
+        for i in board[0]:
+
+            if i == 0:
+
+                zeroCount += 1
+
+        if zeroCount == 0:
+                
+            return True, "Board is full"
+
         for r in board:
 
             for c in range(4):
