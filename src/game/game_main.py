@@ -72,13 +72,19 @@ class Game():
 
             if event.key == pygame.K_RETURN:
 
-                if self.logic.dropPiece(self.board, self.currentColumn, self.piece)[1] == True:
+                if self.AI.Game_over(self.board)[0] == True:
 
-                    self.piece *= -1
-                    self.gui.draw_main_gui(
-                        self.screen, self.board, self.currentColumn, self.piece)
+                    self.board = self.logic.clearBoard(self.board)
 
-                    pass
+                else:
+
+                    if self.logic.dropPiece(self.board, self.currentColumn, self.piece)[1] == True:
+
+                        self.piece *= -1
+                        # self.gui.draw_main_gui(
+                        # self.screen, self.board, self.currentColumn, self.piece)
+
+                        pass
 
             if self.piece == -1:
 
@@ -91,27 +97,32 @@ class Game():
 
                 print("voitto")
 
-                time.sleep(2)
+                winningText = self.AI.Game_over(self.board)[1]
 
-                self.board = self.logic.clearBoard(self.board)
+                self.gui.draw_winning_gui(winningText, self.screen)
+
+                # time.sleep(2)
+
+                # self.board = self.logic.clearBoard(self.board)
 
             if self.AI.evaluatePosition(self.board, -self.piece) > 1000:
 
                 print("voitto")
 
-                time.sleep(2)
+                winningText = self.AI.Game_over(self.board)[1]
 
-                self.board = self.logic.clearBoard(self.board)
+                self.gui.draw_winning_gui(winningText, self.screen)
+
+                # time.sleep(2)
+
+                # self.board = self.logic.clearBoard(self.board)
 
         # print(event)
 
-        self.gui.draw_main_gui(self.screen, self.board,
-                               self.currentColumn, self.piece)
-
-        # if self.piece == -1:
+        winningText = self.AI.Game_over(self.board)[1]
 
         self.gui.draw_main_gui(self.screen, self.board,
-                               self.currentColumn, self.piece)
+                               self.currentColumn, self.piece, winningText)
 
     def event_handler(self):
         """

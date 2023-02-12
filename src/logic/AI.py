@@ -27,11 +27,11 @@ class AI():
 
                 if pieceCount == 4:
 
-                    return True
+                    return True, "AI opponent wins!"
 
                 if enemyPieceCount == 4:
 
-                    return True
+                    return True, "Player 1 wins!"
 
         columns = np.transpose(board)
 
@@ -46,11 +46,11 @@ class AI():
 
                 if pieceCount == 4:
 
-                    return True
+                    return True, "AI opponent wins!"
 
                 if enemyPieceCount == 4:
 
-                    return True
+                    return True, "Player 1 wins!"
 
         neg_diagonals = []
         pos_diagonals = []
@@ -78,11 +78,11 @@ class AI():
 
                 if pieceCount == 4:
 
-                    return True
+                    return True, "AI opponent wins!"
 
                 if enemyPieceCount == 4:
 
-                    return True
+                    return True, "Player 1 wins!"
 
         for offset in range(-2, 4):
 
@@ -105,11 +105,13 @@ class AI():
 
                 if pieceCount == 4:
 
-                    return True
+                    return True, "AI opponent wins!"
 
                 if enemyPieceCount == 4:
 
-                    return True
+                    return True, "Player 1 wins!"
+
+        return False, ""
 
     def evaluateRows(self, board, piece):
 
@@ -262,7 +264,7 @@ class AI():
 
                 if pieceCount == 4:
 
-                    self.score += math.inf
+                    self.score += 10000
 
                 if pieceCount == 3 and emptyCount == 1:
 
@@ -341,7 +343,7 @@ class AI():
 
         self.Game_over(board)
 
-        if depth == 0 or self.Game_over(board) == True:
+        if depth == 0 or self.Game_over(board)[0] == True:
 
             score = self.evaluatePosition(board, -1)
 

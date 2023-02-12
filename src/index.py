@@ -1,6 +1,6 @@
 
 import game.game_main as game_main
-import logic.logictests
+import tests.logictests
 
 
 def main():

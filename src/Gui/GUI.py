@@ -1,6 +1,7 @@
 
 import pygame
 from logic import matrix_logic
+from logic import AI
 
 
 class Gui():
@@ -24,6 +25,7 @@ class Gui():
     def __init__(self):
 
         self.logic = matrix_logic.Logic()
+        self.AI = AI.AI()
 
         self.board = self.logic.board
         self.rows = self.logic.rows
@@ -38,6 +40,8 @@ class Gui():
         self.red = (255, 50, 0)
         self.yellow = (255, 255, 0)
         self.blue = (0, 0, 255)
+
+        self.font = pygame.font.Font('freesansbold.ttf', 80)
 
         self.block_size = 130
         self.circle_size = 50
@@ -80,8 +84,18 @@ class Gui():
 
                 pygame.draw.circle(screen, color, pos, self.circle_size)
 
-    def draw_main_gui(self, screen, board, currentColumn, currentPiece):
+    def draw_winning_gui(self, player, screen):
+
+        screen.blit(self.font.render(player, True, self.blue), (100, 20))
+
+    def draw_main_gui(self, screen, board, currentColumn, currentPiece, winningText):
+
+        # player = "Player 1"
+
+        # winningText = self.AI.Game_over(self.board)[1]
 
         screen.fill(self.black)
 
         self.draw_board_gui(screen, board, currentColumn, currentPiece)
+
+        self.draw_winning_gui(winningText, screen)
