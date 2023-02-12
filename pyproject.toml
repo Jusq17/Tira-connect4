@@ -1,20 +1,19 @@
 [tool.poetry]
-name = "connect4-dependencies"
+name = "connect4 dependencies"
 version = "0.1.0"
 description = ""
 authors = ["Juska <juseljus@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-numpy = "^1.24.1"
-pygame = "^2.1.2"
-invoke = "^2.0.0"
-pylint = "^2.16.1"
-coverage = "^7.1.0"
+numpy = "^1.24.2"
+pytest = "^7.2.1"
 autopep8 = "^2.0.1"
+pygame = "^2.1.2"
+coverage = "^7.1.0"
+invoke = "^2.0.0"
 
 [tool.poetry.dev-dependencies]
-invoke = "^2.0.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
