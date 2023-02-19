@@ -16,7 +16,7 @@ class tests(unittest.TestCase):
 
         self.board = self.logic.board
 
-    def testEvaluation(self):
+    def testColumnsEvaluation(self):
 
         self.board[0, 5] = 1
         self.board[1, 5] = 1
@@ -27,6 +27,8 @@ class tests(unittest.TestCase):
         self.assertGreater(score, 10000)
         self.board = self.logic.clearBoard(self.board)
 
+    def testRowsEvaluation(self):
+
         self.board[0, 1] = 1
         self.board[0, 2] = 1
         self.board[0, 3] = 1
@@ -35,6 +37,8 @@ class tests(unittest.TestCase):
         score = self.AI.evaluatePosition(self.board, 1)
         self.assertGreater(score, 10000)
         self.board = self.logic.clearBoard(self.board)
+
+    def testDiagonalsEvaluation(self):
 
         self.board[1, 1] = 1
         self.board[2, 2] = 1
@@ -54,7 +58,7 @@ class tests(unittest.TestCase):
         self.assertLess(score, -10000)
         self.board = self.logic.clearBoard(self.board)
 
-    def testGameOver(self):
+    def testGameOverPlayer(self):
 
         self.board = self.logic.clearBoard(self.board)
 
@@ -66,9 +70,13 @@ class tests(unittest.TestCase):
         gameOverText = self.AI.Game_over(self.board)
         self.assertEqual(gameOverText, (True, "Player 1 wins!"))
 
+    def testGameOverFull(self):
+
         self.board = self.logic.clearBoard(self.board)
         gameOverText = self.AI.Game_over(self.board)
         self.assertEqual(gameOverText, (False, ""))
+
+    def testGameOverAI(self):
 
         self.board[0, 0] = 1
         self.board[1, 1] = 1

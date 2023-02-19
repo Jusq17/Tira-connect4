@@ -14,19 +14,15 @@ class AI():
         self.piece = 1
         self.game_over = False
 
-    def Game_over(self, board):
+    def gameOverRows(self, board):
+        """
+            Metodi, joka tarkastaa onko peli loppu rivien osalta.
 
-        zeroCount = 0
+            Args:
 
-        for i in board[0]:
+                board: pelilauta
 
-            if i == 0:
-
-                zeroCount += 1
-
-        if zeroCount == 0:
-                
-            return True, "Board is full"
+        """
 
         for r in board:
 
@@ -44,6 +40,16 @@ class AI():
                 if enemyPieceCount == 4:
 
                     return True, "Player 1 wins!"
+
+    def gameOverColumns(self, board):
+        """
+            Metodi, joka tarkastaa onko peli loppu sarakkeiden osalta.
+
+            Args:
+
+                board: pelilauta
+
+        """
 
         columns = np.transpose(board)
 
@@ -63,6 +69,16 @@ class AI():
                 if enemyPieceCount == 4:
 
                     return True, "Player 1 wins!"
+
+    def gameOverDiagonals(self, board):
+        """
+            Metodi, joka tarkastaa onko peli loppu diagonaalien osalta.
+
+            Args:
+
+                board: pelilauta
+
+        """
 
         neg_diagonals = []
         pos_diagonals = []
@@ -122,6 +138,32 @@ class AI():
                 if enemyPieceCount == 4:
 
                     return True, "Player 1 wins!"
+
+    def Game_over(self, board):
+        """
+            Metodi, joka katsoo onko peli loppu. Eli kumpi pelaajista on voittaja vai onko lauta täynnä ilman voittajaa
+
+            Args:
+
+                board: pelilauta
+
+        """
+
+        zeroCount = 0
+
+        self.gameOverRows(board)
+        self.gameOverColumns(board)
+        self.gameOverDiagonals(board)
+
+        for i in board[0]:
+
+            if i == 0:
+
+                zeroCount += 1
+
+        if zeroCount == 0:
+
+            return True, "Board is full"
 
         return False, ""
 
@@ -345,11 +387,6 @@ class AI():
         """
 
         bestPosition = 0
-        # maxScore = 0
-        # minScore = 0
-        value = 0
-
-        self.game_over = False
 
         validLocations = self.logic.getValidColumns(board)
 
