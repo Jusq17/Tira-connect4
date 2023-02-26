@@ -17,7 +17,7 @@ def coveragereport(ctx):
     ctx.run("coverage html", pty=False)
 
 @task
-def format(ctx):  # pylint: disable=redefined-builtin
+def format(ctx):
     ctx.run("autopep8 --in-place --recursive src", pty=False)
 
 @task

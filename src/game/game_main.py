@@ -34,7 +34,7 @@ class Game():
         self.board = self.logic.board
         self.piece = 1
 
-        self.currentColumn = 0
+        self.currentColumn = 3
 
         pygame.init()
         self.clock = pygame.time.Clock()
@@ -81,10 +81,6 @@ class Game():
                     if self.logic.dropPiece(self.board, self.currentColumn, self.piece)[1] == True:
 
                         self.piece *= -1
-                        # self.gui.draw_main_gui(
-                        # self.screen, self.board, self.currentColumn, self.piece)
-
-                        pass
 
             if self.piece == -1:
 
@@ -101,9 +97,7 @@ class Game():
 
                 self.gui.draw_winning_gui(winningText, self.screen)
 
-                # time.sleep(2)
-
-                # self.board = self.logic.clearBoard(self.board)
+                self.currentColumn = 3
 
             if self.AI.evaluatePosition(self.board, -self.piece) > 1000:
 
@@ -113,11 +107,7 @@ class Game():
 
                 self.gui.draw_winning_gui(winningText, self.screen)
 
-                # time.sleep(2)
-
-                # self.board = self.logic.clearBoard(self.board)
-
-        # print(event)
+                self.currentColumn = 3
 
         winningText = self.AI.Game_over(self.board)[1]
 

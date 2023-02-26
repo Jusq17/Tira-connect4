@@ -33,11 +33,10 @@ class Gui():
 
         pygame.init()
 
-        # self.size = self.width, self.height = 800, 800
-
         self.black = (0, 0, 0)
         self.gray = (128, 128, 128)
         self.red = (255, 50, 0)
+        self.orange = (255, 165, 0)
         self.yellow = (255, 255, 0)
         self.blue = (0, 0, 255)
 
@@ -86,13 +85,13 @@ class Gui():
 
     def draw_winning_gui(self, player, screen):
 
-        screen.blit(self.font.render(player, True, self.blue), (100, 20))
+        if player != "":
+
+            pygame.draw.rect(screen, self.black, (0,0,1000,110))
+
+        screen.blit(self.font.render(player, True, self.orange), (100, 20))
 
     def draw_main_gui(self, screen, board, currentColumn, currentPiece, winningText):
-
-        # player = "Player 1"
-
-        # winningText = self.AI.Game_over(self.board)[1]
 
         screen.fill(self.black)
 

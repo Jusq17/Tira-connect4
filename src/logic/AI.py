@@ -93,11 +93,7 @@ class AI():
 
         for r in pos_diagonals:
 
-            # print(neg_diagonal)
-
             for c in range(3):
-
-                # neg_diagonal = np.diagonal(board)
 
                 window = r[c:c+4]
 
@@ -120,11 +116,7 @@ class AI():
 
         for r in neg_diagonals:
 
-            # print(neg_diagonal)
-
             for c in range(3):
-
-                # neg_diagonal = np.diagonal(board)
 
                 window = r[c:c+4]
 
@@ -151,10 +143,15 @@ class AI():
 
         zeroCount = 0
 
-        self.gameOverRows(board)
-        self.gameOverColumns(board)
-        self.gameOverDiagonals(board)
-
+        if self.gameOverRows(board) != None:
+            return self.gameOverRows(board)
+        
+        if self.gameOverColumns(board) != None:
+            return self.gameOverColumns(board)
+        
+        if self.gameOverDiagonals(board) != None:
+            return self.gameOverDiagonals(board)
+        
         for i in board[0]:
 
             if i == 0:
@@ -260,11 +257,7 @@ class AI():
 
         for r in pos_diagonals:
 
-            # print(neg_diagonal)
-
             for c in range(3):
-
-                # neg_diagonal = np.diagonal(board)
 
                 window = r[c:c+4]
 
@@ -304,11 +297,7 @@ class AI():
 
         for r in neg_diagonals:
 
-            # print(neg_diagonal)
-
             for c in range(3):
-
-                # neg_diagonal = np.diagonal(board)
 
                 window = r[c:c+4]
 
@@ -411,10 +400,6 @@ class AI():
                 score = self.minimax(
                     depth-1, newBoard, False, -piece, alpha, beta)[0]
 
-                # if score >= math.inf:
-
-                # return score, bestPosition
-
                 if score > maxScore:
 
                     maxScore = score
@@ -425,13 +410,6 @@ class AI():
                 if alpha >= beta:
 
                     break
-                    pass
-
-                # if score <= -1000:
-
-                    # break
-
-            # print(maxScore, bestPosition, depth)
 
             return maxScore, bestPosition
 
@@ -458,14 +436,5 @@ class AI():
                 if alpha >= beta:
 
                     break
-                    pass
-
-                # if score <= -10000:
-
-                    # return score, bestPosition
-
-                # if score <= -1000:
-
-                    # return score, bestPosition
 
             return minScore, bestPosition
