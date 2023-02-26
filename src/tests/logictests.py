@@ -90,13 +90,13 @@ class tests(unittest.TestCase):
         self.board[2, 5] = -1
         self.board[3, 5] = -1
 
-        gameOverText = self.AI.Game_over(self.board)
+        gameOverText = self.AI.game_Over(self.board)
         self.assertEqual(gameOverText, (True, "Player 1 wins!"))
 
     def testGameOverFull(self):
 
         self.board = self.logic.clearBoard(self.board)
-        gameOverText = self.AI.Game_over(self.board)
+        gameOverText = self.AI.game_Over(self.board)
         self.assertEqual(gameOverText, (False, ""))
 
     def testGameOverAI(self):
@@ -106,7 +106,7 @@ class tests(unittest.TestCase):
         self.board[2, 2] = 1
         self.board[3, 3] = 1
 
-        gameOverText = self.AI.Game_over(self.board)
+        gameOverText = self.AI.game_Over(self.board)
         self.assertEqual(gameOverText, (True, "AI opponent wins!"))
 
 

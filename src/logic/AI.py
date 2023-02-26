@@ -58,7 +58,6 @@ class AI():
             for r in range(3):
 
                 window = c[r:r+4]
-
                 pieceCount = np.count_nonzero(window == self.piece)
                 enemyPieceCount = np.count_nonzero(window == self.piece*-1)
 
@@ -86,9 +85,7 @@ class AI():
         for offset in range(-2, 4):
 
             new_board = np.flipud(board)
-
             pos_diagonal = np.diagonal(new_board, offset)
-
             pos_diagonals.append(pos_diagonal)
 
         for r in pos_diagonals:
@@ -96,7 +93,6 @@ class AI():
             for c in range(3):
 
                 window = r[c:c+4]
-
                 pieceCount = np.count_nonzero(window == self.piece)
                 enemyPieceCount = np.count_nonzero(window == self.piece*-1)
 
@@ -111,7 +107,6 @@ class AI():
         for offset in range(-2, 4):
 
             neg_diagonal = np.diagonal(board, offset)
-
             neg_diagonals.append(neg_diagonal)
 
         for r in neg_diagonals:
@@ -119,7 +114,6 @@ class AI():
             for c in range(3):
 
                 window = r[c:c+4]
-
                 pieceCount = np.count_nonzero(window == self.piece)
                 enemyPieceCount = np.count_nonzero(window == self.piece*-1)
 
@@ -131,7 +125,7 @@ class AI():
 
                     return True, "Player 1 wins!"
 
-    def Game_over(self, board):
+    def game_Over(self, board):
         """
             Metodi, joka katsoo onko peli loppu. Eli kumpi pelaajista on voittaja vai onko lauta täynnä ilman voittajaa
 
@@ -145,21 +139,19 @@ class AI():
 
         if self.gameOverRows(board) != None:
             return self.gameOverRows(board)
-        
+
         if self.gameOverColumns(board) != None:
             return self.gameOverColumns(board)
-        
+
         if self.gameOverDiagonals(board) != None:
             return self.gameOverDiagonals(board)
-        
+
         for i in board[0]:
 
             if i == 0:
-
                 zeroCount += 1
 
         if zeroCount == 0:
-
             return True, "Board is full"
 
         return False, ""
@@ -171,7 +163,6 @@ class AI():
             for c in range(4):
 
                 window = r[c:c+4]
-
                 pieceCount = np.count_nonzero(window == self.piece)
                 enemyPieceCount = np.count_nonzero(window == self.piece*-1)
                 emptyCount = np.count_nonzero(window == 0)
@@ -211,7 +202,6 @@ class AI():
             for r in range(3):
 
                 window = c[r:r+4]
-
                 pieceCount = np.count_nonzero(window == self.piece)
                 enemyPieceCount = np.count_nonzero(window == self.piece*-1)
                 emptyCount = np.count_nonzero(window == 0)
@@ -250,9 +240,7 @@ class AI():
         for offset in range(-2, 4):
 
             new_board = np.flipud(board)
-
             pos_diagonal = np.diagonal(new_board, offset)
-
             pos_diagonals.append(pos_diagonal)
 
         for r in pos_diagonals:
@@ -260,7 +248,6 @@ class AI():
             for c in range(3):
 
                 window = r[c:c+4]
-
                 pieceCount = np.count_nonzero(window == self.piece)
                 enemyPieceCount = np.count_nonzero(window == self.piece*-1)
                 emptyCount = np.count_nonzero(window == 0)
@@ -292,7 +279,6 @@ class AI():
         for offset in range(-2, 4):
 
             neg_diagonal = np.diagonal(board, offset)
-
             neg_diagonals.append(neg_diagonal)
 
         for r in neg_diagonals:
@@ -300,7 +286,6 @@ class AI():
             for c in range(3):
 
                 window = r[c:c+4]
-
                 pieceCount = np.count_nonzero(window == self.piece)
                 enemyPieceCount = np.count_nonzero(window == self.piece*-1)
                 emptyCount = np.count_nonzero(window == 0)
@@ -344,15 +329,9 @@ class AI():
         """
 
         self.piece = piece
-
         self.score = 0
-
         columns = np.transpose(board)
-
         centerColumn = columns[3]
-
-        neg_diagonals = []
-        pos_diagonals = []
 
         for piece in centerColumn:
 
@@ -379,24 +358,20 @@ class AI():
 
         validLocations = self.logic.getValidColumns(board)
 
-        self.Game_over(board)
+        self.game_Over(board)
 
-        if depth == 0 or self.Game_over(board)[0] == True:
+        if depth == 0 or self.game_Over(board)[0] == True:
 
             score = self.evaluatePosition(board, -1)
-
             return score, bestPosition
 
         if maximizingPlayer == True:
-
             maxScore = -math.inf
 
             for i in validLocations:
 
                 newBoard = np.copy(board)
-
                 newBoard = self.logic.dropPiece(newBoard, i, -piece)[0]
-
                 score = self.minimax(
                     depth-1, newBoard, False, -piece, alpha, beta)[0]
 
@@ -420,9 +395,7 @@ class AI():
             for i in validLocations:
 
                 newBoard = np.copy(board)
-
                 newBoard = self.logic.dropPiece(newBoard, i, -piece)[0]
-
                 score = self.minimax(
                     depth-1, newBoard, True, -piece, alpha, beta)[0]
 

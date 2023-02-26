@@ -34,7 +34,6 @@ class Logic():
         """
 
         columns = np.transpose(board)
-
         validLocations = []
 
         for c in range(7):
@@ -69,7 +68,6 @@ class Logic():
         if piece != 1:
 
             if board[0, column]:
-
                 self.dropPiece(board, column+1, piece)
 
         return board, False
@@ -85,5 +83,4 @@ class Logic():
         """
 
         board = np.zeros((self.rows, self.columns), dtype=int)
-
         return board

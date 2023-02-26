@@ -55,31 +55,25 @@ class Game():
         if event.type == pygame.KEYDOWN:
 
             if event.key == pygame.K_LEFT:
-
                 self.currentColumn -= 1
 
                 if self.currentColumn < 0:
-
                     self.currentColumn = 0
 
             if event.key == pygame.K_RIGHT:
-
                 self.currentColumn += 1
 
                 if self.currentColumn > 6:
-
                     self.currentColumn = 6
 
             if event.key == pygame.K_RETURN:
 
-                if self.AI.Game_over(self.board)[0] == True:
-
+                if self.AI.game_Over(self.board)[0] == True:
                     self.board = self.logic.clearBoard(self.board)
 
                 else:
 
                     if self.logic.dropPiece(self.board, self.currentColumn, self.piece)[1] == True:
-
                         self.piece *= -1
 
             if self.piece == -1:
@@ -91,25 +85,17 @@ class Game():
 
             if self.AI.evaluatePosition(self.board, self.piece) > 1000:
 
-                print("voitto")
-
-                winningText = self.AI.Game_over(self.board)[1]
-
+                winningText = self.AI.game_Over(self.board)[1]
                 self.gui.draw_winning_gui(winningText, self.screen)
-
                 self.currentColumn = 3
 
             if self.AI.evaluatePosition(self.board, -self.piece) > 1000:
 
-                print("voitto")
-
-                winningText = self.AI.Game_over(self.board)[1]
-
+                winningText = self.AI.game_Over(self.board)[1]
                 self.gui.draw_winning_gui(winningText, self.screen)
-
                 self.currentColumn = 3
 
-        winningText = self.AI.Game_over(self.board)[1]
+        winningText = self.AI.game_Over(self.board)[1]
 
         self.gui.draw_main_gui(self.screen, self.board,
                                self.currentColumn, self.piece, winningText)

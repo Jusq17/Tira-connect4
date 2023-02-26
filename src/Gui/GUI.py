@@ -39,7 +39,6 @@ class Gui():
         self.orange = (255, 165, 0)
         self.yellow = (255, 255, 0)
         self.blue = (0, 0, 255)
-
         self.font = pygame.font.Font('freesansbold.ttf', 80)
 
         self.block_size = 130
@@ -50,11 +49,9 @@ class Gui():
         pygame.draw.rect(screen, self.blue, (0, 110, 1000, 1000))
 
         if currentPiece == 1:
-
             color = self.red
 
         elif currentPiece == -1:
-
             color = self.yellow
 
         pygame.draw.circle(screen, color, (self.block_size *
@@ -70,15 +67,12 @@ class Gui():
                 y = self.block_size * row + 120
 
                 pos = (x + self.circle_size + 5, y + self.circle_size + 5)
-
                 piece = board[row, col]
 
                 if piece == 1:
-
                     color = self.red
 
                 elif piece == -1:
-
                     color = self.yellow
 
                 pygame.draw.circle(screen, color, pos, self.circle_size)
@@ -86,15 +80,12 @@ class Gui():
     def draw_winning_gui(self, player, screen):
 
         if player != "":
-
-            pygame.draw.rect(screen, self.black, (0,0,1000,110))
+            pygame.draw.rect(screen, self.black, (0, 0, 1000, 110))
 
         screen.blit(self.font.render(player, True, self.orange), (100, 20))
 
     def draw_main_gui(self, screen, board, currentColumn, currentPiece, winningText):
 
         screen.fill(self.black)
-
         self.draw_board_gui(screen, board, currentColumn, currentPiece)
-
         self.draw_winning_gui(winningText, screen)
