@@ -34,12 +34,28 @@ class Gui():
         pygame.init()
 
         self.black = (0, 0, 0)
+        self.white = (255,255,255)
         self.gray = (128, 128, 128)
         self.red = (255, 50, 0)
         self.orange = (255, 165, 0)
         self.yellow = (255, 255, 0)
         self.blue = (0, 0, 255)
         self.font = pygame.font.Font('freesansbold.ttf', 80)
+        self.screenDimensions = (900, 900)
+        self.screenCenter = (self.screenDimensions[0]/2, self.screenDimensions[1]/2)
+
+        self.difficultyText = self.font.render("Select difficulty", True, self.white)
+        self.easyText = self.font.render("Easy", True, self.yellow)
+        self.mediumText = self.font.render("Medium", True, self.orange)
+        self.hardText = self.font.render("Hard", True, self.red)
+
+        self.easyRect = self.easyText.get_rect().inflate(10,10)
+        self.mediumRect = self.mediumText.get_rect()
+        self.hardRect = self.hardText.get_rect()
+
+        self.easyRect.center = (450, 200 + self.easyRect[1]/2 + 50)
+        self.mediumRect.center = (450, 440)
+        self.hardRect.center = (450, 645)
 
         self.block_size = 130
         self.circle_size = 50
@@ -79,10 +95,26 @@ class Gui():
 
     def draw_winning_gui(self, player, screen):
 
+        x = 200
+
         if player != "":
             pygame.draw.rect(screen, self.black, (0, 0, 1000, 110))
 
-        screen.blit(self.font.render(player, True, self.orange), (100, 20))
+        if len(player) > 13:
+
+            x = 100
+
+        screen.blit(self.font.render(player, True, self.orange), (x, 20))
+
+    def draw_menu_gui(self, screen):
+
+        screen.fill(self.black)
+        screen.blit(self.difficultyText, (150, 20))
+        screen.blit(self.easyText, (350, 200))
+        screen.blit(self.mediumText, (290, 400))
+        screen.blit(self.hardText, (350, 600))
+
+        print(self.easyRect)
 
     def draw_main_gui(self, screen, board, currentColumn, currentPiece, winningText):
 

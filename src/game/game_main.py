@@ -1,4 +1,4 @@
-
+from pygame.constants import KEYDOWN, MOUSEBUTTONDOWN
 import sys
 import math
 import pygame
@@ -33,15 +33,39 @@ class Game():
 
         self.board = self.logic.board
         self.piece = 1
-
         self.currentColumn = 3
+        self.gameState = 0
+        self.depth = 1
 
         pygame.init()
         self.clock = pygame.time.Clock()
         self.size = self.width, self.height = 900, 900
         self.screen = pygame.display.set_mode(self.size)
 
-    def game_handler(self, event):
+    def menu_handler(self, event):
+
+        self.gui.draw_menu_gui(self.screen)
+
+        if event.type == MOUSEBUTTONDOWN:
+
+            pos = pygame.mouse.get_pos()
+
+            if self.gui.easyRect.collidepoint(pos):
+
+                self.gameState = 1
+                self.depth = 1
+
+            elif self.gui.mediumRect.collidepoint(pos):
+
+                self.gameState = 1
+                self.depth = 3
+
+            elif self.gui.hardRect.collidepoint(pos):
+
+                self.gameState = 1
+                self.depth = 5
+
+    def game_handler(self, event, depth):
         """
 
         Metodi, joka hoitaa pygame-eventtien tarkastamisen, kun pelaaja pelaa peliä.
@@ -66,6 +90,11 @@ class Game():
                 if self.currentColumn > 6:
                     self.currentColumn = 6
 
+            if event.key == pygame.K_ESCAPE:
+
+                self.gameState = 0
+                self.board = self.logic.clearBoard(self.board)
+
             if event.key == pygame.K_RETURN:
 
                 if self.AI.game_Over(self.board)[0] == True:
@@ -79,7 +108,7 @@ class Game():
             if self.piece == -1:
 
                 bestColumn = self.AI.minimax(
-                    5, self.board, True, -self.piece, -math.inf, math.inf)[1]
+                    depth, self.board, True, -self.piece, -math.inf, math.inf)[1]
                 self.logic.dropPiece(self.board, bestColumn, self.piece)
                 self.piece *= -1
 
@@ -114,7 +143,13 @@ class Game():
 
         for event in event_list:
 
-            self.game_handler(event)
+            if self.gameState == 0:
+
+                self.menu_handler(event)
+
+            elif self.gameState == 1:
+
+                self.game_handler(event, self.depth)
 
             if event.type == pygame.QUIT:
 
