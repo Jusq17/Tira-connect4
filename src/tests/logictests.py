@@ -4,7 +4,9 @@ from logic import matrix_logic
 import game.game_main
 import logic.AI
 import unittest
-
+import datetime
+import timeit
+import math
 
 class tests(unittest.TestCase):
 
@@ -101,6 +103,8 @@ class tests(unittest.TestCase):
 
     def testGameOverAI(self):
 
+        self.board = self.logic.clearBoard(self.board)
+
         self.board[0, 0] = 1
         self.board[1, 1] = 1
         self.board[2, 2] = 1
@@ -109,6 +113,50 @@ class tests(unittest.TestCase):
         gameOverText = self.AI.game_Over(self.board)
         self.assertEqual(gameOverText, (True, "AI opponent wins!"))
 
+    def testMinimaxDepth1(self):
+
+        self.board = self.logic.clearBoard(self.board)
+        depth = 1
+
+        startTime = datetime.datetime.now()
+        self.AI.minimax(depth, self.board, True, 1, -math.inf, math.inf)
+        endTime = datetime.datetime.now()
+
+        executionTime = endTime - startTime
+        executionTime = str(executionTime)[5:]
+        executionTime = float(executionTime)
+        
+        self.assertLess(executionTime, 0.1)
+
+    def testMinimaxDepth3(self):
+
+        self.board = self.logic.clearBoard(self.board)
+
+        depth = 3
+        startTime = datetime.datetime.now()
+        self.AI.minimax(depth, self.board, True, 1, -math.inf, math.inf)
+
+        endTime = datetime.datetime.now()
+        executionTime = endTime - startTime
+        executionTime = str(executionTime)[5:]
+        executionTime = float(executionTime)
+        
+        self.assertLess(executionTime, 1)
+
+    def testMinimaxDepth5(self):
+
+        self.board = self.logic.clearBoard(self.board)
+        depth = 5
+
+        startTime = datetime.datetime.now()
+        self.AI.minimax(depth, self.board, True, 1, -math.inf, math.inf)
+        endTime = datetime.datetime.now()
+
+        executionTime = endTime - startTime
+        executionTime = str(executionTime)[5:]
+        executionTime = float(executionTime)
+        
+        self.assertLess(executionTime, 10)
 
 if __name__ == "__main__":
 
