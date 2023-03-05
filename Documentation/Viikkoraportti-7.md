@@ -5,6 +5,6 @@ This way beginner players can have an opponent to play against. Because of the l
 There are two other difficulties called "Medium" and "Hard". These have a depth of 3 and 5 in the algorithm. The medium opponent responds in less than a second and can be quite
 difficult to beat. The Hard opponent responds in less than 10 seconds on modern processors. Because the minimax algorithm has an exponential time complexity the response times can vary from 2-9 seconds on most processors.
 
-Next week I will add more test and finish the documentation and the project as a whole.
+Next week I will add more tests and finish the documentation and the project as a whole.
 
 Hours spent: 5
