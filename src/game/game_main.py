@@ -59,7 +59,7 @@ class Game():
             elif self.gui.mediumRect.collidepoint(pos):
 
                 self.gameState = 1
-                self.depth = 4
+                self.depth = 3
 
             elif self.gui.hardRect.collidepoint(pos):
 
@@ -118,19 +118,10 @@ class Game():
                 self.logic.dropPiece(self.board, bestColumn, self.piece)
                 self.piece *= -1
 
-            if self.AI.evaluatePosition(self.board, self.piece) > 1000:
+            if self.AI.game_Over(self.board)[0] != None:
 
-                #winningText = self.AI.game_Over(self.board)[1]
-                winningText = "Player 1 wins!"
+                winningText = self.AI.game_Over(self.board)[1]
                 self.gui.draw_winning_gui(winningText, self.screen)
-                self.currentColumn = 3
-
-            elif self.AI.evaluatePosition(self.board, -self.piece) > 1000:
-
-                #winningText = self.AI.game_Over(self.board)[1]
-                winningText = "AI opponent wins!"
-                self.gui.draw_winning_gui(winningText, self.screen)
-                self.currentColumn = 3
 
             #winningText = self.AI.game_Over(self.board)[1]
 

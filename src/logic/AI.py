@@ -11,7 +11,7 @@ class AI():
         self.logic = matrix_logic.Logic()
 
         self.score = 0
-        self.piece = 1
+        self.piece = -1
         self.game_over = False
 
     def gameOverRows(self, board):
@@ -338,6 +338,18 @@ class AI():
             if piece == self.piece:
 
                 self.score += 4
+
+        if self.evaluateRows(board, piece) > 1000 or self.evaluateRows(board, piece) < -1000:
+
+            return self.evaluateRows(board, piece)
+        
+        if self.evaluateColumns(board, piece) > 1000 or self.evaluateColumns(board, piece) < -1000:
+
+            return self.evaluateColumns(board, piece)
+        
+        if self.evaluateDiagonals(board, piece) > 1000 or self.evaluateDiagonals(board, piece) < -1000:
+
+            return self.evaluateDiagonals(board, piece)
 
         return self.score + self.evaluateRows(board, piece) + self.evaluateColumns(board, piece) + self.evaluateDiagonals(board, piece)
 
