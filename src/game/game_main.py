@@ -38,6 +38,7 @@ class Game():
         self.depth = 1
 
         pygame.init()
+        pygame.display.set_caption("Connect Four")
         self.clock = pygame.time.Clock()
         self.size = self.width, self.height = 900, 900
         self.screen = pygame.display.set_mode(self.size)
@@ -58,7 +59,7 @@ class Game():
             elif self.gui.mediumRect.collidepoint(pos):
 
                 self.gameState = 1
-                self.depth = 3
+                self.depth = 4
 
             elif self.gui.hardRect.collidepoint(pos):
 
@@ -75,6 +76,8 @@ class Game():
             event: pygame-event, joka tarkastetaan.
 
         """
+
+        winningText = ""
 
         if event.type == pygame.KEYDOWN:
 
@@ -103,7 +106,10 @@ class Game():
                 else:
 
                     if self.logic.dropPiece(self.board, self.currentColumn, self.piece)[1] == True:
+
                         self.piece *= -1
+
+        if winningText == "":
 
             if self.piece == -1:
 
@@ -114,17 +120,19 @@ class Game():
 
             if self.AI.evaluatePosition(self.board, self.piece) > 1000:
 
-                winningText = self.AI.game_Over(self.board)[1]
+                #winningText = self.AI.game_Over(self.board)[1]
+                winningText = "Player 1 wins!"
                 self.gui.draw_winning_gui(winningText, self.screen)
                 self.currentColumn = 3
 
-            if self.AI.evaluatePosition(self.board, -self.piece) > 1000:
+            elif self.AI.evaluatePosition(self.board, -self.piece) > 1000:
 
-                winningText = self.AI.game_Over(self.board)[1]
+                #winningText = self.AI.game_Over(self.board)[1]
+                winningText = "AI opponent wins!"
                 self.gui.draw_winning_gui(winningText, self.screen)
                 self.currentColumn = 3
 
-        winningText = self.AI.game_Over(self.board)[1]
+            #winningText = self.AI.game_Over(self.board)[1]
 
         self.gui.draw_main_gui(self.screen, self.board,
                                self.currentColumn, self.piece, winningText)

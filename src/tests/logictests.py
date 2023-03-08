@@ -80,7 +80,7 @@ class tests(unittest.TestCase):
         self.board[4, 4] = -1
 
         score = self.AI.evaluatePosition(self.board, 1)
-        self.assertLess(score, -10000)
+        self.assertLess(score, -1000)
         self.board = self.logic.clearBoard(self.board)
 
     def testGameOverPlayer(self):
@@ -128,20 +128,20 @@ class tests(unittest.TestCase):
         
         self.assertLess(executionTime, 0.1)
 
-    def testMinimaxDepth3(self):
+    def testMinimaxDepth4(self):
 
         self.board = self.logic.clearBoard(self.board)
+        depth = 4
 
-        depth = 3
         startTime = datetime.datetime.now()
         self.AI.minimax(depth, self.board, True, 1, -math.inf, math.inf)
-
         endTime = datetime.datetime.now()
+
         executionTime = endTime - startTime
         executionTime = str(executionTime)[5:]
         executionTime = float(executionTime)
         
-        self.assertLess(executionTime, 1)
+        self.assertLess(executionTime, 5)
 
     def testMinimaxDepth5(self):
 

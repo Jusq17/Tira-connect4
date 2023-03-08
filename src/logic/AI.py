@@ -33,13 +33,13 @@ class AI():
                 pieceCount = np.count_nonzero(window == self.piece)
                 enemyPieceCount = np.count_nonzero(window == self.piece*-1)
 
-                if pieceCount == 4:
-
-                    return True, "AI opponent wins!"
-
                 if enemyPieceCount == 4:
 
                     return True, "Player 1 wins!"
+
+                elif pieceCount == 4:
+
+                    return True, "AI opponent wins!"
 
     def gameOverColumns(self, board):
         """
@@ -61,13 +61,13 @@ class AI():
                 pieceCount = np.count_nonzero(window == self.piece)
                 enemyPieceCount = np.count_nonzero(window == self.piece*-1)
 
-                if pieceCount == 4:
-
-                    return True, "AI opponent wins!"
-
                 if enemyPieceCount == 4:
 
                     return True, "Player 1 wins!"
+
+                elif pieceCount == 4:
+
+                    return True, "AI opponent wins!"
 
     def gameOverDiagonals(self, board):
         """
@@ -96,13 +96,13 @@ class AI():
                 pieceCount = np.count_nonzero(window == self.piece)
                 enemyPieceCount = np.count_nonzero(window == self.piece*-1)
 
-                if pieceCount == 4:
-
-                    return True, "AI opponent wins!"
-
                 if enemyPieceCount == 4:
 
                     return True, "Player 1 wins!"
+
+                elif pieceCount == 4:
+
+                    return True, "AI opponent wins!"
 
         for offset in range(-2, 4):
 
@@ -117,13 +117,13 @@ class AI():
                 pieceCount = np.count_nonzero(window == self.piece)
                 enemyPieceCount = np.count_nonzero(window == self.piece*-1)
 
-                if pieceCount == 4:
-
-                    return True, "AI opponent wins!"
-
                 if enemyPieceCount == 4:
 
                     return True, "Player 1 wins!"
+
+                elif pieceCount == 4:
+
+                    return True, "AI opponent wins!"
 
     def game_Over(self, board):
         """
@@ -140,10 +140,10 @@ class AI():
         if self.gameOverRows(board) != None:
             return self.gameOverRows(board)
 
-        if self.gameOverColumns(board) != None:
+        elif self.gameOverColumns(board) != None:
             return self.gameOverColumns(board)
 
-        if self.gameOverDiagonals(board) != None:
+        elif self.gameOverDiagonals(board) != None:
             return self.gameOverDiagonals(board)
 
         for i in board[0]:
@@ -181,11 +181,11 @@ class AI():
 
                 if enemyPieceCount == 4:
 
-                    self.score -= 10000
+                    self.score -= 1000
 
                 if enemyPieceCount == 3 and emptyCount == 1:
 
-                    self.score -= 10000
+                    self.score -= 1000
 
                 if enemyPieceCount == 2 and emptyCount == 2:
 
@@ -220,11 +220,11 @@ class AI():
 
                 if enemyPieceCount == 4:
 
-                    self.score -= 10000
+                    self.score -= 1000
 
                 if enemyPieceCount == 3 and emptyCount == 1:
 
-                    self.score -= 10000
+                    self.score -= 1000
 
                 if enemyPieceCount == 2 and emptyCount == 2:
 
@@ -266,11 +266,11 @@ class AI():
 
                 if enemyPieceCount == 4:
 
-                    self.score -= 10000
+                    self.score -= 1000
 
                 if enemyPieceCount == 3 and emptyCount == 1:
 
-                    self.score -= 10000
+                    self.score -= 1000
 
                 if enemyPieceCount == 2 and emptyCount == 2:
 
@@ -308,7 +308,7 @@ class AI():
 
                 if enemyPieceCount == 3 and emptyCount == 1:
 
-                    self.score -= 10000
+                    self.score -= 1000
 
                 if enemyPieceCount == 2 and emptyCount == 2:
 
