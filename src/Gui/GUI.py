@@ -45,11 +45,13 @@ class Gui():
         self.green = (0,230,77)
         self.font = pygame.font.Font('freesansbold.ttf', 80)
         self.font2 = pygame.font.Font('freesansbold.ttf', 81)
+        self.font3 = pygame.font.Font('freesansbold.ttf', 100)
+        self.font4 = pygame.font.Font('freesansbold.ttf', 101)
         self.screenDimensions = (900, 900)
         self.screenCenter = (self.screenDimensions[0]/2, self.screenDimensions[1]/2)
 
-        self.gameText = self.font.render("Connect 4", True, self.blue2)
-        self.gameText2 = self.font2.render("Connect 4", True, self.black)
+        self.gameText = self.font3.render("Connect 4", True, self.blue2)
+        self.gameText2 = self.font4.render("Connect 4", True, self.black)
         self.easyText = self.font.render("Easy", True, self.black)
         self.mediumText = self.font.render("Medium", True, self.black)
         self.hardText = self.font.render("Hard", True, self.black)
@@ -120,8 +122,8 @@ class Gui():
     def draw_menu_gui(self, screen):
 
         screen.fill(self.blue)
-        screen.blit(self.gameText2, (230, 38))
-        screen.blit(self.gameText, (232, 40))
+        screen.blit(self.gameText2, (192, 45))
+        screen.blit(self.gameText, (190, 42))
 
         pygame.draw.rect(screen, self.black, self.easyRect2)
         pygame.draw.rect(screen, self.yellow, self.easyRect)
