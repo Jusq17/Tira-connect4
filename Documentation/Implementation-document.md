@@ -29,7 +29,7 @@ The GUI has two views:
 ## The structure of the program
 
 The program has 4 modules:
-- matrix_logic with Logic-class
+- matrix_logic with the Logic-class
 - AI with the AI-class
 - GUI with the Gui-class
 - game_main with the Game-class
