@@ -10,7 +10,7 @@ Methods testEvaluation() and testGameOver() test that the AI can evaluate positi
 
 ## Testing performance
 
-The methods testDepth1(), testDepth3() and testDepth5(), test the performance of the minimax-algorithm with different depths.
+The methods testMinimaxDepth1()... testMinimaxDepth6(), test the performance of the minimax-algorithm with different depths.
 <br>
 These tests show that the game is playable on moderns processors and that the algorithm is working as intended.
 
