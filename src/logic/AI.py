@@ -125,7 +125,7 @@ class AI():
 
                     return True, "AI opponent wins!"
 
-    def game_Over(self, board):
+    def gameOver(self, board):
         """
             Metodi, joka katsoo onko peli loppu. Eli kumpi pelaajista on voittaja vai onko lauta täynnä ilman voittajaa
 
@@ -156,7 +156,7 @@ class AI():
 
         return False, ""
 
-    def evaluateRows(self, board, piece):
+    def evaluateRows(self, board):
 
         for r in board:
 
@@ -193,7 +193,7 @@ class AI():
 
         return self.score
 
-    def evaluateColumns(self, board, piece):
+    def evaluateColumns(self, board):
 
         columns = np.transpose(board)
 
@@ -232,9 +232,8 @@ class AI():
 
         return self.score
 
-    def evaluateDiagonals(self, board, piece):
+    def evaluatePositiveDiagonals(self, board):
 
-        neg_diagonals = []
         pos_diagonals = []
 
         for offset in range(-2, 4):
@@ -275,6 +274,12 @@ class AI():
                 if enemyPieceCount == 2 and emptyCount == 2:
 
                     self.score -= 2
+
+        return self.score
+
+    def evaluateNegativeDiagonals(self, board):
+
+        neg_diagonals = []
 
         for offset in range(-2, 4):
 
@@ -339,19 +344,23 @@ class AI():
 
                 self.score += 4
 
-        if self.evaluateRows(board, piece) > 1000 or self.evaluateRows(board, piece) < -1000:
+        if self.evaluateRows(board) > 1000 or self.evaluateRows(board) < -1000:
 
-            return self.evaluateRows(board, piece)
-        
-        if self.evaluateColumns(board, piece) > 1000 or self.evaluateColumns(board, piece) < -1000:
+            return self.evaluateRows(board)
 
-            return self.evaluateColumns(board, piece)
-        
-        if self.evaluateDiagonals(board, piece) > 1000 or self.evaluateDiagonals(board, piece) < -1000:
+        if self.evaluateColumns(board) > 1000 or self.evaluateColumns(board) < -1000:
 
-            return self.evaluateDiagonals(board, piece)
+            return self.evaluateColumns(board)
 
-        return self.score + self.evaluateRows(board, piece) + self.evaluateColumns(board, piece) + self.evaluateDiagonals(board, piece)
+        if self.evaluatePositiveDiagonals(board) > 1000 or self.evaluatePositiveDiagonals(board) < -1000:
+
+            return self.evaluatePositiveDiagonals(board)
+
+        if self.evaluateNegativeDiagonals(board) > 1000 or self.evaluateNegativeDiagonals(board) < -1000:
+
+            return self.evaluateNegativeDiagonals(board)
+
+        return self.score + self.evaluateRows(board) + self.evaluateColumns(board) + self.evaluatePositiveDiagonals(board) + self.evaluateNegativeDiagonals(board)
 
     def minimax(self, depth, board, maximizingPlayer, piece, alpha, beta):
         """
@@ -367,12 +376,9 @@ class AI():
         """
 
         bestPosition = 0
-
         validLocations = self.logic.getValidColumns(board)
 
-        self.game_Over(board)
-
-        if depth == 0 or self.game_Over(board)[0] == True:
+        if depth == 0 or self.gameOver(board)[0] == True:
 
             score = self.evaluatePosition(board, -1)
             return score, bestPosition

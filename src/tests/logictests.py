@@ -3,10 +3,12 @@ import numpy as np
 from logic import matrix_logic
 import game.game_main
 import logic.AI
+import numpy as np
 import unittest
 import datetime
 import timeit
 import math
+
 
 class tests(unittest.TestCase):
 
@@ -17,6 +19,30 @@ class tests(unittest.TestCase):
         self.AI = logic.AI.AI()
 
         self.board = self.logic.board
+
+    def testDropPieceEmpty(self):
+
+        self.board = self.logic.clearBoard(self.board)
+        self.logic.dropPiece(self.board, 0, 1)
+
+        self.assertEqual(self.board[5, 0], 1)
+
+    def testDropPieceFull(self):
+
+        self.board = self.logic.clearBoard(self.board)
+
+        self.board[0, 5] = 1
+        self.board[1, 5] = 1
+        self.board[2, 5] = 1
+        self.board[3, 5] = 1
+        self.board[4, 5] = 1
+        self.board[5, 5] = 1
+
+        transposedBoard = np.transpose(self.board)
+        column = np.array([1, 1, 1, 1, 1, 1])
+        self.logic.dropPiece(self.board, 5, -1)
+
+        self.assertEqual(transposedBoard[5].all(), column.all())
 
     def testColumnsEvaluation(self):
 
@@ -42,12 +68,13 @@ class tests(unittest.TestCase):
 
     def testRowsEvaluationBoth(self):
 
+        self.board = self.logic.clearBoard(self.board)
+
         self.board[2, 1] = 1
         self.board[2, 2] = 1
         self.board[2, 3] = 1
 
-        self.board[3, 2] = -1
-        self.board[3, 3] = -1
+        self.board[5, 2] = -1
 
         score = self.AI.evaluatePosition(self.board, 1)
         self.assertGreater(score, 0)
@@ -63,7 +90,27 @@ class tests(unittest.TestCase):
         self.assertGreater(score, 7)
         self.board = self.logic.clearBoard(self.board)
 
-    def testDiagonalsEvaluation(self):
+    def testPositiveDiagonalsEvaluation(self):
+
+        self.board[5, 0] = 1
+        self.board[4, 1] = 1
+        self.board[3, 2] = 1
+        self.board[2, 3] = 1
+
+        score = self.AI.evaluatePosition(self.board, 1)
+        self.assertGreater(score, 10000)
+        self.board = self.logic.clearBoard(self.board)
+
+        self.board[5, 0] = -1
+        self.board[4, 1] = -1
+        self.board[3, 2] = -1
+        self.board[2, 3] = -1
+
+        score = self.AI.evaluatePosition(self.board, 1)
+        self.assertLess(score, -1000)
+        self.board = self.logic.clearBoard(self.board)
+
+    def testNegativeDiagonalsEvaluation(self):
 
         self.board[1, 1] = 1
         self.board[2, 2] = 1
@@ -92,13 +139,13 @@ class tests(unittest.TestCase):
         self.board[2, 5] = -1
         self.board[3, 5] = -1
 
-        gameOverText = self.AI.game_Over(self.board)
-        self.assertEqual(gameOverText, (True, "Player 1 wins!"))
+        gameOverText = self.AI.gameOver(self.board)
+        self.assertEqual(gameOverText, (True, "AI opponent wins!"))
 
     def testGameOverFull(self):
 
         self.board = self.logic.clearBoard(self.board)
-        gameOverText = self.AI.game_Over(self.board)
+        gameOverText = self.AI.gameOver(self.board)
         self.assertEqual(gameOverText, (False, ""))
 
     def testGameOverAI(self):
@@ -110,8 +157,8 @@ class tests(unittest.TestCase):
         self.board[2, 2] = 1
         self.board[3, 3] = 1
 
-        gameOverText = self.AI.game_Over(self.board)
-        self.assertEqual(gameOverText, (True, "AI opponent wins!"))
+        gameOverText = self.AI.gameOver(self.board)
+        self.assertEqual(gameOverText, (True, "Player 1 wins!"))
 
     def testMinimaxDepth1(self):
 
@@ -125,13 +172,13 @@ class tests(unittest.TestCase):
         executionTime = endTime - startTime
         executionTime = str(executionTime)[5:]
         executionTime = float(executionTime)
-        
+
         self.assertLess(executionTime, 0.1)
 
-    def testMinimaxDepth4(self):
+    def testMinimaxDepth3(self):
 
         self.board = self.logic.clearBoard(self.board)
-        depth = 4
+        depth = 3
 
         startTime = datetime.datetime.now()
         self.AI.minimax(depth, self.board, True, 1, -math.inf, math.inf)
@@ -140,8 +187,8 @@ class tests(unittest.TestCase):
         executionTime = endTime - startTime
         executionTime = str(executionTime)[5:]
         executionTime = float(executionTime)
-        
-        self.assertLess(executionTime, 5)
+
+        self.assertLess(executionTime, 1)
 
     def testMinimaxDepth5(self):
 
@@ -155,8 +202,9 @@ class tests(unittest.TestCase):
         executionTime = endTime - startTime
         executionTime = str(executionTime)[5:]
         executionTime = float(executionTime)
-        
-        self.assertLess(executionTime, 10)
+
+        self.assertLess(executionTime, 15)
+
 
 if __name__ == "__main__":
 

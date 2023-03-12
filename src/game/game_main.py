@@ -1,8 +1,7 @@
-from pygame.constants import KEYDOWN, MOUSEBUTTONDOWN
 import sys
 import math
 import pygame
-import time
+from pygame.constants import KEYDOWN, MOUSEBUTTONDOWN
 import numpy as np
 from Gui import GUI
 from logic import matrix_logic
@@ -43,9 +42,9 @@ class Game():
         self.size = self.width, self.height = 900, 900
         self.screen = pygame.display.set_mode(self.size)
 
-    def menu_handler(self, event):
+    def menuHandler(self, event):
 
-        self.gui.draw_menu_gui(self.screen)
+        self.gui.drawMenuGui(self.screen)
 
         if event.type == MOUSEBUTTONDOWN:
 
@@ -66,7 +65,7 @@ class Game():
                 self.gameState = 1
                 self.depth = 5
 
-    def game_handler(self, event, depth):
+    def gameHandler(self, event, depth):
         """
 
         Metodi, joka hoitaa pygame-eventtien tarkastamisen, kun pelaaja pelaa peliä.
@@ -100,7 +99,7 @@ class Game():
 
             if event.key == pygame.K_RETURN:
 
-                if self.AI.game_Over(self.board)[0] == True:
+                if self.AI.gameOver(self.board)[0] == True:
                     self.board = self.logic.clearBoard(self.board)
 
                 else:
@@ -118,17 +117,15 @@ class Game():
                 self.logic.dropPiece(self.board, bestColumn, self.piece)
                 self.piece *= -1
 
-            if self.AI.game_Over(self.board)[0] != None:
+            if self.AI.gameOver(self.board)[0] != None:
 
-                winningText = self.AI.game_Over(self.board)[1]
-                self.gui.draw_winning_gui(winningText, self.screen)
+                winningText = self.AI.gameOver(self.board)[1]
+                self.gui.drawWinningGui(winningText, self.screen)
 
-            #winningText = self.AI.game_Over(self.board)[1]
+        self.gui.drawMainGui(self.screen, self.board,
+                             self.currentColumn, self.piece, winningText)
 
-        self.gui.draw_main_gui(self.screen, self.board,
-                               self.currentColumn, self.piece, winningText)
-
-    def event_handler(self):
+    def eventHandler(self):
         """
             Metodi, joka hoitaa pygame-eventtien tarkastamisen.
 
@@ -144,11 +141,11 @@ class Game():
 
             if self.gameState == 0:
 
-                self.menu_handler(event)
+                self.menuHandler(event)
 
             elif self.gameState == 1:
 
-                self.game_handler(event, self.depth)
+                self.gameHandler(event, self.depth)
 
             if event.type == pygame.QUIT:
 
@@ -165,6 +162,6 @@ class Game():
 
         """
 
-        self.event_handler()
+        self.eventHandler()
         pygame.display.update()
         self.clock.tick(60)

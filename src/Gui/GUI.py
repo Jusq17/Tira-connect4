@@ -34,21 +34,22 @@ class Gui():
         pygame.init()
 
         self.black = (0, 0, 0)
-        self.white = (255,255,255)
+        self.white = (255, 255, 255)
         self.gray = (100, 100, 100)
         self.gray2 = (40, 40, 40)
         self.red = (255, 50, 0)
         self.orange = (255, 165, 0)
         self.yellow = (255, 255, 0)
-        self.blue = (0,85,102)
-        self.blue2 = (204,221,255)
-        self.green = (0,230,77)
+        self.blue = (0, 85, 102)
+        self.blue2 = (204, 221, 255)
+        self.green = (0, 230, 77)
         self.font = pygame.font.Font('freesansbold.ttf', 80)
-        self.font2 = pygame.font.Font('freesansbold.ttf', 81)
+        self.font2 = pygame.font.Font('freesansbold.ttf', 80)
         self.font3 = pygame.font.Font('freesansbold.ttf', 100)
         self.font4 = pygame.font.Font('freesansbold.ttf', 101)
         self.screenDimensions = (900, 900)
-        self.screenCenter = (self.screenDimensions[0]/2, self.screenDimensions[1]/2)
+        self.screenCenter = (
+            self.screenDimensions[0]/2, self.screenDimensions[1]/2)
 
         self.gameText = self.font3.render("Connect 4", True, self.blue2)
         self.gameText2 = self.font4.render("Connect 4", True, self.black)
@@ -56,12 +57,12 @@ class Gui():
         self.mediumText = self.font.render("Medium", True, self.black)
         self.hardText = self.font.render("Hard", True, self.black)
 
-        self.easyRect = self.easyText.get_rect().inflate(20,20)
-        self.easyRect2 = self.easyRect.inflate(15,15)
-        self.mediumRect = self.mediumText.get_rect().inflate(20,20)
-        self.mediumRect2 = self.mediumRect.inflate(15,15)
-        self.hardRect = self.hardText.get_rect().inflate(20,20)
-        self.hardRect2 = self.hardRect.inflate(15,15)
+        self.easyRect = self.easyText.get_rect().inflate(20, 20)
+        self.easyRect2 = self.easyRect.inflate(15, 15)
+        self.mediumRect = self.mediumText.get_rect().inflate(20, 20)
+        self.mediumRect2 = self.mediumRect.inflate(15, 15)
+        self.hardRect = self.hardText.get_rect().inflate(20, 20)
+        self.hardRect2 = self.hardRect.inflate(15, 15)
 
         self.easyRect.center = (445, 240)
         self.easyRect2.center = (445, 240)
@@ -73,7 +74,7 @@ class Gui():
         self.block_size = 130
         self.circle_size = 50
 
-    def draw_board_gui(self, screen, board, currentColumn, currentPiece):
+    def drawBoardGui(self, screen, board, currentColumn, currentPiece):
 
         pygame.draw.rect(screen, self.blue, (0, 110, 1000, 1000))
 
@@ -106,7 +107,7 @@ class Gui():
 
                 pygame.draw.circle(screen, color, pos, self.circle_size)
 
-    def draw_winning_gui(self, player, screen):
+    def drawWinningGui(self, player, screen):
 
         x = 200
 
@@ -119,10 +120,10 @@ class Gui():
 
         screen.blit(self.font.render(player, True, self.orange), (x, 20))
 
-    def draw_menu_gui(self, screen):
+    def drawMenuGui(self, screen):
 
         screen.fill(self.blue)
-        screen.blit(self.gameText2, (192, 45))
+        screen.blit(self.gameText2, (193, 46))
         screen.blit(self.gameText, (190, 42))
 
         pygame.draw.rect(screen, self.black, self.easyRect2)
@@ -137,10 +138,8 @@ class Gui():
         pygame.draw.rect(screen, self.red, self.hardRect)
         screen.blit(self.hardText, (350, 600))
 
-        #print(self.easyRect)
-
-    def draw_main_gui(self, screen, board, currentColumn, currentPiece, winningText):
+    def drawMainGui(self, screen, board, currentColumn, currentPiece, winningText):
 
         screen.fill(self.black)
-        self.draw_board_gui(screen, board, currentColumn, currentPiece)
-        self.draw_winning_gui(winningText, screen)
+        self.drawBoardGui(screen, board, currentColumn, currentPiece)
+        self.drawWinningGui(winningText, screen)
