@@ -43,6 +43,15 @@ class Game():
         self.screen = pygame.display.set_mode(self.size)
 
     def menuHandler(self, event):
+        """
+
+        Metodi, joka hoitaa pygame-eventtien tarkastamisen, kun pelaaja on menussa.
+
+        Args:
+
+            event: pygame-event, joka tarkastetaan.
+
+        """
 
         self.gui.drawMenuGui(self.screen)
 

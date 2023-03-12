@@ -158,6 +158,15 @@ class AI():
 
     def evaluateRows(self, board):
 
+        """
+            Metodi, joka arvioi pelilaudalla olevan tilanteen rivien suhteen
+
+            Args:
+
+                board: pelilauta
+
+        """
+
         for r in board:
 
             for c in range(4):
@@ -194,6 +203,15 @@ class AI():
         return self.score
 
     def evaluateColumns(self, board):
+
+        """
+            Metodi, joka arvioi pelilaudalla olevan tilanteen sarakkeiden suhteen
+
+            Args:
+
+                board: pelilauta
+
+        """
 
         columns = np.transpose(board)
 
@@ -233,6 +251,15 @@ class AI():
         return self.score
 
     def evaluatePositiveDiagonals(self, board):
+
+        """
+            Metodi, joka arvioi pelilaudalla olevan tilanteen positiivisten diagonaalien suhteen
+
+            Args:
+
+                board: pelilauta
+
+        """
 
         pos_diagonals = []
 
@@ -278,6 +305,15 @@ class AI():
         return self.score
 
     def evaluateNegativeDiagonals(self, board):
+
+        """
+            Metodi, joka arvioi pelilaudalla olevan tilanteen negatiivisten diagonaalien suhteen.
+
+            Args:
+
+                board: pelilauta
+
+        """
 
         neg_diagonals = []
 

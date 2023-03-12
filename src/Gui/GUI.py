@@ -12,9 +12,13 @@ class Gui():
         Attributes:
 
             black: musta väri
+            white: valkoinen väri
             gray: harmaa väri
             blue: sininen väri
+            blue2: sininen väri
             yellow: keltainen väri
+            orange: oranssi väri
+            red: punainen väri
             rows: laudan rivien määrä
             cols: laudan sarakkeiden määrä
             block_size: laudan laatikoiden koko
@@ -35,8 +39,6 @@ class Gui():
 
         self.black = (0, 0, 0)
         self.white = (255, 255, 255)
-        self.gray = (100, 100, 100)
-        self.gray2 = (40, 40, 40)
         self.red = (255, 50, 0)
         self.orange = (255, 165, 0)
         self.yellow = (255, 255, 0)
@@ -47,9 +49,6 @@ class Gui():
         self.font2 = pygame.font.Font('freesansbold.ttf', 80)
         self.font3 = pygame.font.Font('freesansbold.ttf', 100)
         self.font4 = pygame.font.Font('freesansbold.ttf', 101)
-        self.screenDimensions = (900, 900)
-        self.screenCenter = (
-            self.screenDimensions[0]/2, self.screenDimensions[1]/2)
 
         self.gameText = self.font3.render("Connect 4", True, self.blue2)
         self.gameText2 = self.font4.render("Connect 4", True, self.black)
@@ -75,6 +74,18 @@ class Gui():
         self.circle_size = 50
 
     def drawBoardGui(self, screen, board, currentColumn, currentPiece):
+
+        """
+            Metodi, joka hoitaa pelilaudan piirtämisestä ruudulle
+
+            Args:
+
+                screen:  pygame ikkuna, johon grafiikat piirretään
+                board: pelilauta
+                currentColumn: Sarake johon pelinappula laitetaan
+                currentPiece: numeroarvo, joka kuvaa pelinappulaa
+
+        """
 
         pygame.draw.rect(screen, self.blue, (0, 110, 1000, 1000))
 
@@ -107,20 +118,39 @@ class Gui():
 
                 pygame.draw.circle(screen, color, pos, self.circle_size)
 
-    def drawWinningGui(self, player, screen):
+    def drawWinningGui(self, winningText, screen):
+
+        """
+            Metodi, joka hoitaa voitto-tekstin piirtämisestä ruudulle.
+
+            Args:
+            
+                screen:  pygame ikkuna, johon grafiikat piirretään
+                winningText: teksti, joka piirretään näytölle
+
+        """
 
         x = 200
 
-        if player != "":
+        if winningText != "":
             pygame.draw.rect(screen, self.black, (0, 0, 1000, 110))
 
-        if len(player) > 14:
+        if len(winningText) > 14:
 
             x = 100
 
-        screen.blit(self.font.render(player, True, self.orange), (x, 20))
+        screen.blit(self.font.render(winningText, True, self.orange), (x, 20))
 
     def drawMenuGui(self, screen):
+
+        """
+            Metodi, joka hoitaa start-menun piirtämisestä näytölle
+
+            Args:
+
+                screen:  pygame ikkuna, johon grafiikat piirretään
+
+        """
 
         screen.fill(self.blue)
         screen.blit(self.gameText2, (193, 46))
@@ -139,6 +169,19 @@ class Gui():
         screen.blit(self.hardText, (350, 600))
 
     def drawMainGui(self, screen, board, currentColumn, currentPiece, winningText):
+
+        """
+            Metodi, joka hoitaa GUI:n piirtämisestä näytölle
+
+            Args:
+
+                screen:  pygame ikkuna, johon grafiikat piirretään
+                board: pelilauta
+                currentColumn: Sarake johon pelinappula laitetaan
+                currentPiece: numeroarvo, joka kuvaa pelinappulaa
+                winningText: teksti, joka piirretään näytölle
+
+        """
 
         screen.fill(self.black)
         self.drawBoardGui(screen, board, currentColumn, currentPiece)

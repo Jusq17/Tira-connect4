@@ -65,11 +65,6 @@ class Logic():
                 board[i, column] = piece
                 return board, True
 
-        if piece != 1:
-
-            if board[0, column]:
-                self.dropPiece(board, column+1, piece)
-
         return board, False
 
     def clearBoard(self, board):
