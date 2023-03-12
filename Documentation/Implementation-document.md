@@ -25,3 +25,27 @@ This program is a game meant to be played by a real player. Because of this the 
 The GUI has two views: 
 - A "start-menu" where the player can choose the difficulty
 - A "game-view" where the actual gameplay happens
+
+## The structure of the program
+
+The program has 4 modules:
+- matrix_logic with Logic-class
+- AI with the AI-class
+- GUI with the Gui-class
+- game_main with the Game-class
+
+### The following sequence diagram shows how the program operates when the player places down a piece on the board
+
+```mermaid
+sequenceDiagram
+  actor User
+  participant GUI
+  participant Game
+  participant Logic
+  participant AI
+  User->>Game: Press the 'ENTER' key
+  Game->>Logic: dropPiece(board)
+  Game->>AI: minimax(depth, board, maximizingPlayer, piece, alpha, beta)
+  Game->>GUI: drawMainGUI(screen, board, currentColumn, currentPiece, winningText)
+  ```
+
