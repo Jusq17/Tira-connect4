@@ -16,12 +16,12 @@ These tests show that the game is playable on moderns processors and that the al
 
 | Depth | Time |
 | :----:|:-----|
-| 1 |  |
-| 2 |  |
-| 3 |  |
-| 4 |  |
-| 5 |  |
-| 6 |  |
+| 1 | 0.014s |
+| 2 | 0.041s |
+| 3 | 0.30s |
+| 4 | 1.40s |
+| 5 | 5.60s |
+| 6 | 18.64s |
 
 ## The test coverage-report
 
