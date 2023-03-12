@@ -18,3 +18,27 @@ The numpy library is also used heavily when dealing with the gameboard.
 [User Manual](https://github.com/Jusq17/Tira-connect4/blob/main/Documentation/user-manual.md)
 <br/>
 [Test Document](https://github.com/Jusq17/Tira-connect4/blob/main/Documentation/test-document.md)
+
+## All of the commands that can be run from the terminal/command line
+
+Starting the program:
+
+```bash
+poetry run invoke start
+```
+Running the tests:
+
+```bash
+poetry run invoke test
+```
+Generating the test coverage-report:
+
+```bash
+poetry run invoke coveragereport
+```
+
+Running the pylint checks:
+
+```bash
+poetry run invoke lint
+```
