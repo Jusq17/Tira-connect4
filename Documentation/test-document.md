@@ -14,6 +14,15 @@ The methods testDepth1(), testDepth3() and testDepth5(), test the performance of
 <br>
 These tests show that the game is playable on moderns processors and that the algorithm is working as intended.
 
+| Depth | Time |
+| :----:|:-----|
+| 1 |  |
+| 2 |  |
+| 3 |  |
+| 4 |  |
+| 5 |  |
+| 6 |  |
+
 ## The test coverage-report
 
 ![](./images/coverage-report.JPG)
