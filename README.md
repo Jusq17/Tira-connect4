@@ -13,7 +13,7 @@ The numpy library is also used heavily when dealing with the gameboard.
 
 [Project Definition](https://github.com/Jusq17/Tira-connect4/blob/main/Documentation/project-definition.md)
 <br/>
-[Implementation Document]()
+[Implementation Document](https://github.com/Jusq17/Tira-connect4/blob/main/Documentation/Implementation-document.md)
 <br/>
 [User Manual](https://github.com/Jusq17/Tira-connect4/blob/main/Documentation/user-manual.md)
 <br/>
