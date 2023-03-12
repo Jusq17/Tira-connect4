@@ -5,7 +5,9 @@ Algorithms and data structures course 2023
 
 The aim of this project is to create an AI that can play connect four using a minimax algorithm and alpha-beta pruning.
 
-The game and AI will be developed using Python3 and the GUI using the pygame library.
+The game and AI are developed using Python3 and the GUI using the pygame library.
+<br/>
+The numpy library is also used heavily when dealing with the gameboard.
 
 ## Documentation
 
