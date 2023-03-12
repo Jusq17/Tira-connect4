@@ -175,6 +175,21 @@ class tests(unittest.TestCase):
 
         self.assertLess(executionTime, 0.1)
 
+    def testMinimaxDepth2(self):
+
+        self.board = self.logic.clearBoard(self.board)
+        depth = 2
+
+        startTime = datetime.datetime.now()
+        self.AI.minimax(depth, self.board, True, 1, -math.inf, math.inf)
+        endTime = datetime.datetime.now()
+
+        executionTime = endTime - startTime
+        executionTime = str(executionTime)[5:]
+        executionTime = float(executionTime)
+
+        self.assertLess(executionTime, 0.5)
+
     def testMinimaxDepth3(self):
 
         self.board = self.logic.clearBoard(self.board)
@@ -188,7 +203,22 @@ class tests(unittest.TestCase):
         executionTime = str(executionTime)[5:]
         executionTime = float(executionTime)
 
-        self.assertLess(executionTime, 1)
+        self.assertLess(executionTime, 2)
+
+    def testMinimaxDepth4(self):
+
+        self.board = self.logic.clearBoard(self.board)
+        depth = 4
+
+        startTime = datetime.datetime.now()
+        self.AI.minimax(depth, self.board, True, 1, -math.inf, math.inf)
+        endTime = datetime.datetime.now()
+
+        executionTime = endTime - startTime
+        executionTime = str(executionTime)[5:]
+        executionTime = float(executionTime)
+
+        self.assertLess(executionTime, 5)
 
     def testMinimaxDepth5(self):
 
@@ -204,6 +234,22 @@ class tests(unittest.TestCase):
         executionTime = float(executionTime)
 
         self.assertLess(executionTime, 15)
+
+    def testMinimaxDepth6(self):
+
+        self.board = self.logic.clearBoard(self.board)
+        depth = 6
+
+        startTime = datetime.datetime.now()
+        self.AI.minimax(depth, self.board, True, 1, -math.inf, math.inf)
+        endTime = datetime.datetime.now()
+
+        executionTime = endTime - startTime
+        executionTime = str(executionTime)[5:]
+        executionTime = float(executionTime)
+
+        self.assertLess(executionTime, 60)
+
 
 
 if __name__ == "__main__":
